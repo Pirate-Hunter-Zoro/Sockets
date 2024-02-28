@@ -1,29 +1,29 @@
 import java.io.IOException;
 import java.net.Socket;
 
-public class Client extends Talker {
+public class ClientInitializer extends Talker {
 
     @Override
     protected boolean shouldListenToUser() {
-        return !Talker.serverListens;
+        return !Talker.serverInitializerListens;
     }
 
-    Client() {
+    ClientInitializer() {
         super();
         setUpSocket();
     }
 
-    Client(int port) {
+    ClientInitializer(int port) {
         super(port);
         setUpSocket();
     }
 
-    Client(String hostName) {
+    ClientInitializer(String hostName) {
         super(hostName);
         setUpSocket();
     }
 
-    Client(int port, String hostName) {
+    ClientInitializer(int port, String hostName) {
         super(port, hostName);
         setUpSocket();
     }

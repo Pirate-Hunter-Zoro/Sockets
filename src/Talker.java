@@ -10,7 +10,7 @@ public abstract class Talker implements Closeable {
     private static final String DEFAULT_HOST = "localhost";
     private static final int DEFAULT_PORT = 12987;
 
-    public static boolean serverListens = true;
+    public static boolean serverInitializerListens = true;
 
     protected int port;
     protected String hostName;

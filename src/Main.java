@@ -9,22 +9,23 @@ public class Main {
         if (args.length > 0) {
             try {
                 port = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e){} // Do nothing - port will become default port in later constructors
+            } catch (NumberFormatException e) {
+            } // Do nothing - port will become default port in later constructors
         }
 
         spawnServerAndClient();
     }
 
     private static void spawnServerAndClient() throws IOException, InterruptedException {
-        Talker.serverListens = (Math.random() > 0.5);
-        System.out.println((Talker.serverListens) ? "SERVER WILL LISTEN TO USER AND SEND TO CLIENT\n\n"
-                : "CLIENT WILL LISTEN TO USER AND SEND TO SERVER\n\n");
+        Talker.serverInitializerListens = (Math.random() > 0.5);
+        System.out.println((Talker.serverInitializerListens) ? "SERVER-INITIALIZER WILL LISTEN TO USER AND SEND TO THE CLIENT-INITIALIZER\n\n"
+                : "CLIENT-INITIALIZER WILL LISTEN TO USER AND SEND TO THE SERVER-INITIALIZER\n\n");
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Server server = new Server(Main.port);
+                    ServerInitializer server = new ServerInitializer(Main.port);
                     server.syncIO();
                     server.close();
                 } catch (IOException e) {
@@ -33,7 +34,7 @@ public class Main {
         }).start();
         Thread.sleep(100); // To give the server enough time to claim the port
 
-        Client client = new Client(Main.port);
+        ClientInitializer client = new ClientInitializer(Main.port);
         client.syncIO();
         client.close();
         Thread.sleep(1000); // Give the user some time to register
